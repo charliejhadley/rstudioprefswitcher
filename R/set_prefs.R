@@ -10,7 +10,7 @@ set_prefs <- function(preferences_name = "personal") {
   }
 
 
-  new_settings <- jsonlite::read_json(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE), paste0(preferences_name, "_rstudio-prefs.json")))
+  new_settings <- jsonlite::read_json(usethis:::rstudio_config_path("rstudio-prefs.json"))
 
 
   existing_settings <- jsonlite::read_json(usethis:::rstudio_config_path("rstudio-prefs.json"))
