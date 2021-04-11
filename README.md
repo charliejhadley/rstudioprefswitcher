@@ -11,9 +11,8 @@ switching RStudio preferences. It’s designed mostly for instructors who
 want to switch between personal preferences and default RStudio
 preferences.
 
-At this point the package is likely to be a stub and not further
-developed by the current maintainer. It’s also **untested on Windows so
-returns an error :woman\_shrugging:**.
+This package is a work in progress but is not intended for release to
+CRAN.
 
 ## Installation
 
@@ -23,45 +22,59 @@ This package is not intended for CRAN, please install with remotes
 remotes::install_github("charliejhadley/rstudioprefswitcher")
 ```
 
-## Details
+## How to use
 
-[Maëlle Salmon](https://twitter.com/ma_salmon) has written an awesome
-article on various methods for [how packages can store user
-preferences](https://blog.r-hub.io/2020/03/12/user-preferences/#using-a-config-file).
-This package makes use of the
-[`{rappsdirs}`](https://rappdirs.r-lib.org/) package for storing
-preferences.
-
-## Example
-
-You’ve already customised your RStudio installation lots, but let’s just
-make one more easy to see change:
-
--   hide the taskbar
+Let’s assume your custom settings are currently set, but to make sure
+there’s a drammatic change let’s programmatically change the theme to
+something that looks like the Matrix as follows:
 
 ``` r
-rstudioapi::writeRStudioPreference("toolbar_visible", FALSE)
-#> NULL
+rstudioapi::writeRStudioPreference("editor_theme", "Gob")
 ```
 
-Now let’s store this collection of preferences as `day_to_day_coding`
+Now let’s save this combination of settings as “matrix\_theme”
 
 ``` r
 library("rstudioprefswitcher")
-store_prefs(preferences_name = "day_to_day_coding")
+prefs_save(preferences_name = "matrix_theme")
 ```
 
-We want to now prove that we can restore preferences, so let’s make the
-taskbar visible again:
+So we can then reapply these settings, let’s change to a “light” theme.
 
 ``` r
-rstudioapi::writeRStudioPreference("toolbar_visible", TRUE)
-#> NULL
+rstudioapi::writeRStudioPreference("editor_theme", "Tomorrow")
 ```
 
-Now let’s load up our stored set of preferences which will again hide
-the taskbar:
+Now let’s set our preferences back to “matrix\_theme”, note that
+`prefs_set()` will reload RStudio to ensure all settings are applied.
 
 ``` r
-new_preferences <- set_prefs(preferences_name = "day_to_day_coding")
+prefs_set(preferences_name = "matrix_theme")
+```
+
+### Resetting defaults
+
+At present [it appears the only way to
+reset](https://github.com/rstudio/rstudio/issues/9217) your preferences
+programmatically is to delete the preference file. This can be achieved
+with `prefs_reset_to_defaults()`
+
+``` r
+prefs_reset_to_defaults()
+```
+
+**However**. RStudio maintains several default preferences from the R
+Console (R GUI) that contribute to poor code reproducibility,
+specifically:
+
+-   Asking to save .RData on exit
+-   Restoring .RData at startup
+-   Always save History
+
+You are strongly encouraged to run `prefs_improve_reproducibility()`
+after `prefs_reset_to_defaults()` to improve the reproducibility of your
+code.
+
+``` r
+prefs_improve_reproducibility()
 ```
