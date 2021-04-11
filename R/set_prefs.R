@@ -1,13 +1,13 @@
 #' Set stored preferences
 #' @export
 set_prefs <- function(preferences_name = "personal") {
-  if (!.Platform$OS.type == "unix") {
-    stop("This package hasn't been tested on Windows")
-  }
-
-  if (!file.exists(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE), paste0(preferences_name, "_rstudio-prefs.json")))) {
-    stop(paste("Can't find preferences with name:", preferences_name))
-  }
+  # if (!.Platform$OS.type == "unix") {
+  #   stop("This package hasn't been tested on Windows")
+  # }
+  #
+  # if (!file.exists(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE), paste0(preferences_name, "_rstudio-prefs.json")))) {
+  #   stop(paste("Can't find preferences with name:", preferences_name))
+  # }
 
 
   new_settings <- jsonlite::read_json(usethis:::rstudio_config_path("rstudio-prefs.json"))
