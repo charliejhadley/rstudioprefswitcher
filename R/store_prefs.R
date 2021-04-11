@@ -10,4 +10,7 @@ store_prefs <- function(preferences_name = "personal") {
 
   dir.create(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE)), showWarnings = FALSE)
 
+  jsonlite::write_json(rstudio_prefs_json, file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE),
+                                                     paste0(preferences_name, "_rstudio-prefs.json")),
+                       auto_unbox = TRUE, pretty = TRUE)
 }
