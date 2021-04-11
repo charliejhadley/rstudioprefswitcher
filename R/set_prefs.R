@@ -32,3 +32,17 @@ set_prefs <- function(preferences_name = "personal") {
   usethis:::restart_rstudio("A restart of RStudio is required to reload preferences")
 
 }
+
+#' Restore default preferences
+#' @export
+reset_to_default_prefs <- function(){
+
+  if(usethis::ui_yeah("This will delete your existing preferences file. RStudio will then automatically re-write this file. Are you okay with that?")){
+
+    file.remove(usethis:::rstudio_config_path("rstudio-prefs.json"))
+
+    usethis:::restart_rstudio("A restart of RStudio is required to reload the default preferences")
+
+  }
+
+}
