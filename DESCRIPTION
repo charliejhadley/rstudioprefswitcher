@@ -9,6 +9,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 Imports:
+    usethis,
     jsonlite,
     purrr
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
