@@ -2,6 +2,7 @@
 #' @export
 store_prefs <- function(preferences_name = "personal") {
   if (.Platform$OS.type == "unix") {
+prefs_save <- function(preferences_name = "personal") {
     rstudio_prefs_json <- jsonlite::read_json("~/.config/rstudio/rstudio-prefs.json",
                                               simplifyVector = TRUE)
   } else {
