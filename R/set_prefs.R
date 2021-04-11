@@ -1,6 +1,7 @@
 #' Set stored preferences
 #' @export
 set_prefs <- function(preferences_name = "personal") {
+prefs_set <- function(preferences_name = "personal") {
   # if (!.Platform$OS.type == "unix") {
   #   stop("This package hasn't been tested on Windows")
   # }
@@ -13,6 +14,8 @@ set_prefs <- function(preferences_name = "personal") {
   new_settings <- jsonlite::read_json(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE), paste0(preferences_name, "_rstudio-prefs.json")))
 
 
+  prefs_write(new_settings)
+prefs_write <- function(prefs){
   existing_settings <- jsonlite::read_json(usethis:::rstudio_config_path("rstudio-prefs.json"))
 
   for (name in names(new_settings)) {
@@ -36,6 +39,7 @@ set_prefs <- function(preferences_name = "personal") {
 #' Restore default preferences
 #' @export
 reset_to_default_prefs <- function(){
+prefs_reset_to_defaults <- function(improve_code_reproducibility = TRUE){
 
   if(usethis::ui_yeah("This will delete your existing preferences file. RStudio will then automatically re-write this file. Are you okay with that?")){
 
