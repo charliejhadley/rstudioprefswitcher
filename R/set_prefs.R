@@ -4,26 +4,6 @@ prefs_set <- function(preferences_name = "personal") {
 
   new_settings <- jsonlite::read_json(file.path(rappdirs::user_config_dir("rstudioprefswitcher", expand = TRUE), paste0(preferences_name, "_rstudio-prefs.json")))
 
-
-
-  # existing_settings <- jsonlite::read_json(usethis:::rstudio_config_path("rstudio-prefs.json"))
-  #
-  # for (name in names(new_settings)) {
-  #   val <- new_settings[[name]]
-  #
-  #   if (identical(existing_settings[[name]], val)) {
-  #     next
-  #   }
-  #
-  #   existing_settings[[name]] <- val
-  # }
-  #
-  # updated_settings <- existing_settings
-  #
-  # jsonlite::write_json(updated_settings, usethis:::rstudio_config_path("rstudio-prefs.json"), auto_unbox = TRUE, pretty = TRUE)
-  #
-  # usethis:::restart_rstudio("A restart of RStudio is required to reload preferences")
-
   prefs_write(new_settings)
 }
 
